@@ -1,0 +1,55 @@
+<html>
+    <html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<title> Login - Guardian </title>
+</head>
+    <body>
+        <!--header-->
+        <header class="bg-blue-500 border-b-4 border-blue-600">
+	
+            <h1 class="text-4xl font-semibold text-white p-4 text-center"> Login - Guardian </h1> 
+        
+        </header> 
+
+        <form action="/dosignin" method="POST">
+            <div class="bg-grey-lighter min-h-screen flex flex-col">
+                <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+                    <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+                        <h1 class="mb-8 text-3xl text-center">Login</h1>
+    
+                        <input 
+                            type="text"
+                            class="block border border-grey-light w-full p-3 rounded mb-4"
+                            name="email"
+                            placeholder="Email" />
+    
+                        <input 
+                            type="password"
+                            class="block border border-grey-light w-full p-3 rounded mb-4"
+                            name="password"
+                            placeholder="Password" />
+    
+                        <button
+                            type="submit"
+                            class="w-full text-center py-3 rounded bg-indigo-800 text-white hover:bg-green-dark focus:outline-none my-1"
+                        >Login</button>
+    
+                        
+                    </div>
+    
+                    <div class="text-grey-dark mt-6">
+                        Don't have an account? 
+                        <a class="no-underline border-b border-blue text-blue" href="/showsignup">
+                            Sign Up
+                        </a>.
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

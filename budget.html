@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<title> Budget Caclutator </title>
+</head>
+
+<body class="bg-gray-300">
+	
+	
+<!---Header-->
+
+<header class="bg-blue-500 border-b-4 border-blue-600">
+	
+	<h1 class="text-4xl font-semibold text-white p-4 text-center">Budget Calculator App</h1> 
+
+</header>
+
+<!---Container-->
+<div class="Container mx-auto">
+
+	<!---Input Section-->
+
+	<div class="mt-10">
+		<label for="enter_money" class="text-2xl block text-center">Enter Amount that you want to Manage</label>
+		<input id="enter_money" type="text" class="shadow appearence-none border border-gray-500 rounded px-5 py-2 block mx-auto mt-5">
+		
+		<p id="error" class=" hidden text-red-500 text-sm italic text-center mt-3"> Please enter a valid amount</p>
+	</div>
+
+	<!---Manage Budget Section-->
+	<div id="manage_div" class="mt-10 hidden">
+		<p class="text-xl text-center font-semibold "> How would you like to divide your money?</p>
+		
+		<div class="flex mt-8">
+			<div class="flex-grow">
+				<label for="RoomRent"> RoomRent </label>
+				<input id="RoomRent" type="text" class="shadow appearence-none border border-gray-500 rounded py-1">
+			</div>
+
+			<div class="flex-grow">
+				<label for="Accessories"> Accessories </label>
+				<input id="Accessories" type="text" class="shadow appearence-none border border-gray-500 rounded  py-1" >
+			</div>
+
+			<div class="flex-grow">
+				<label for="Emergency"> Emergency </label>
+				<input id="Emergency" type="text" class="shadow appearence-none border border-gray-500 rounded  py-1" >
+			</div>
+
+			<div class="flex-grow">
+				<label for="Saving"> Saving </label>
+				<input id="Saving" type="text" class="shadow appearence-none border border-gray-500 rounded  py-1" >
+			</div>
+
+		</div>
+		<p id="error_manage" class="  text-red-500 text-sm italic text-center mt-10"> </p>
+
+        <div>
+	       <button id="evaluate" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-color-500 rounded mt-10 block mx-auto">Evaluate My Money</button>
+	       	
+	       </button>
+        </div>
+
+        <!---Loading gif image-->
+        <img id="loader" src="giphy.gif" class="hidden block mx-auto">
+
+        <!---show result Section-->
+        <div id="result_section" class="mt-10 hidden">
+        	<p class="text-2xl text-center font-semibold">Here's how you should manage your money</p>
+        	
+        	<div class="flex mt-5">
+        		
+        		<div class=" flex-grow bg-blue-600 shadow-lg px-6 py-4 rounded mx-5">
+        			<h1 class="font-bold text-white text-xl">RoomRent</h1>
+        			<p id="show_room" class="text-white font-semibold text-2xl"></p>
+        		</div>
+
+
+        		<div class="flex-grow bg-pink-600 shadow-lg px-6 py-4 rounded mx-5">
+        			<h1 class="font-bold text-white text-xl">Accessories</h1>
+        			<p id="show_access" class="text-white font-semibold text-2xl"></p>
+        		</div>
+
+
+        		<div class="flex-grow bg-green-600 shadow-lg px-6 py-4 rounded mx-5">
+        			<h1 class="font-bold text-white text-xl">Emergency</h1>
+        			<p id="show_emergency" class="text-white font-semibold text-2xl"></p>
+        		</div>
+
+        		<div class="flex-grow bg-purple-600 shadow-lg px-6 py-4 rounded mx-5">
+        			<h1 class="font-bold text-white text-xl">Saving</h1>
+        			<p id="show_saving" class="text-white font-semibold text-2xl"></p>
+        		</div>
+
+        	</div>
+			<button id="update_bdg" class="bg-red-500 hover:bd-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded mt-5 block mx-auto">Update Budget</button>
+        	<button id="reset_button" class="bg-red-500 hover:bd-red-400 text-white font-bold py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded mt-5 block mx-auto">  Reset</button>
+
+        </div>
+
+	</div>
+	
+</div>
+
+<script type="text/javascript">var enterMoney=document.getElementById('enter_money');
+
+	var money;
+	
+	//Grab the error message
+	
+	var error=document.getElementById('error');
+	var errorManage=document.getElementById('error_manage');
+	
+	//get all manage inputs like (roomrent,accessories,emergency & saving)
+	var roomrent=document.getElementById('RoomRent');
+	var accessories=document.getElementById('Accessories');
+	var emergency=document.getElementById('Emergency');
+	var saving=document.getElementById('Saving');
+	
+	
+	
+	//get all output getelement
+	
+	var showRoom = document.getElementById('show_room');
+	var showAccessories = document.getElementById('show_access');
+	var showEmergency = document.getElementById('show_emergency');
+	var showSaving = document.getElementById('show_saving');
+	
+	
+	//index 2
+	
+	var showRoom_2 = document.getElementById('show_room_2');
+	var showAccessories_2 = document.getElementById('show_access_2');
+	var showEmergency_2 = document.getElementById('show_emergency_2');
+	var showSaving_2 = document.getElementById('show_saving_2');
+	
+	//get loader gif file
+	
+	var loader =document.getElementById('loader');
+	//get the evaluate button
+	var evaluate=document.getElementById('evaluate');
+	
+	//get the Reset button
+	var resetButton=document.getElementById('reset_button');
+	//get the manage_div
+	var manageDiv=document.getElementById('manage_div');
+	
+	//get result section
+	
+	var resultSection=document.getElementById("result_section");
+	
+	
+	//create an event
+	enterMoney.addEventListener('keyup',showManageMoney);
+	evaluate.addEventListener('click',showloader);
+	resetButton.addEventListener('click',reload);
+	
+	
+	//function to show gif loader image
+	function showloader(){
+		loader.classList.remove("hidden");
+		setTimeout(validateManage,1000);
+	}
+	
+	
+	//function to validate input amount and show the manage section
+	
+	function showManageMoney(e)
+	{
+	
+	//check whether the key entered is ENTER key or not
+	if(e.keyCode==13){
+	
+	money = e.target.value;
+	
+	//validate the Input value
+	
+	if(isNaN(money) || money==0){
+	
+		//display error message
+		error.classList.remove("hidden");
+	}
+	else{
+	//move ahead & show the manage section div
+	error.classList.add("hidden");
+	manageDiv.classList.remove("hidden");
+	
+	}
+	}
+	
+	}
+	
+	function validateManage(){
+	
+		//hide loader image
+		loader.classList.add("hidden");
+		//validate input fields
+	if (roomrent.value=="" || accessories.value=="" || emergency.value=="" || saving.value==""){
+		errorManage.innerHTML="Value for input fields is not given. please provide the value for all inputs";
+	}else{
+		errorManage.innerHTML="";
+	
+		//parse the value to integer
+	
+		var room_per = parseInt(roomrent.value);
+		var access_per = parseInt(accessories.value);
+		var emer_per = parseInt(emergency.value);
+		var save_per = parseInt(saving.value);
+	
+		var total= room_per + access_per + emer_per + save_per;
+	
+		if(total> 100){
+			errorManage.innerHTML="The Total Percentage is exceeding 100%. please make sure that is does not exceed 100.";
+	
+		}else{
+			//validation is complete now calculate the percentage
+			calculate(room_per, access_per, emer_per, save_per);
+		}
+	}
+	
+	}
+	
+	//calculate percentage
+	function calculate(roomrent, accessories, emergency, saving){
+		var roomrentMoney = ( roomrent/100) * money;
+		var accessproesMoney = ( accessories/100) * money;
+		var emergencyMoney = ( emergency/100) * money;
+		var savingMoney = ( saving/100) * money;
+	
+	
+		showRoom.innerHTML="Rs."+ roomrentMoney;
+		showAccessories.innerHTML= "Rs."+accessproesMoney;
+		showEmergency.innerHTML= "Rs."+emergencyMoney;
+		showSaving.innerHTML= "Rs."+savingMoney;
+	
+		resultSection.classList.remove("hidden");
+	}
+	
+	
+	function show_bal(roomrent, accessories, emergency, saving){
+		var roomrentMoney = ( roomrent/100) * money;
+		var accessproesMoney = ( accessories/100) * money;
+		var emergencyMoney = ( emergency/100) * money;
+		var savingMoney = ( saving/100) * money;
+	
+	
+		showRoom_2.innerHTML="Rs."+ roomrentMoney;
+		showAccessories_2.innerHTML= "Rs."+accessproesMoney;
+		showEmergency_2.innerHTML= "Rs."+emergencyMoney;
+		showSaving_2.innerHTML= "Rs."+savingMoney;
+	}
+	
+	//reload the page
+	
+	function reload(){
+		location.reload();
+	}</script>
+
+</body>
+
+
+
+
+
+
+</html>
